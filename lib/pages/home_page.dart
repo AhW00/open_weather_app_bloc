@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:open_weather_cubit_stream_subscription/repositories/weather_repository.dart';
-
-import '../services/weather_api_services.dart';
+import 'package:open_weather_cubit_stream_subscription/cubits/weather/weather_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,9 +17,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _fetchWeather() {
-    WeatherRepository(
-            weatherApiServices: WeatherApiServices(httpClient: http.Client()))
-        .fetchWeather('london');
+    context.read<WeatherCubit>().fetchWeather('london');
   }
 
   @override
