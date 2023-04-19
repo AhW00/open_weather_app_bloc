@@ -5,7 +5,8 @@ import 'package:open_weather_cubit_stream_subscription/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_weather_cubit_stream_subscription/repositories/weather_repository.dart';
 import 'package:open_weather_cubit_stream_subscription/services/weather_api_services.dart';
-import 'package:http/http.dart' as http;
+
+import 'cubits/temp_setting/temp_settings_cubit.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -18,10 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => WeatherRepository(
-          weatherApiServices: WeatherApiServices(httpClient: http.Client())),
+      create: (context) =>
+          WeatherRepository(weatherApiServices: WeatherApiServices()),
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => TempSettingsCubit(),
+          ),
           BlocProvider(
             create: (context) => WeatherCubit(
               weatherRepository:

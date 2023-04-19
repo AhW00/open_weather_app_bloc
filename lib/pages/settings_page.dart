@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
+import '../cubits/temp_setting/temp_settings_cubit.dart';
 
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      body: Center(
-        child: Text('Settings'),
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 10.0,
+        ),
+        child: ListTile(
+          title: const Text('Temperature Unit'),
+          subtitle: const Text('Celsius/Fahrenheit (Default: Celsius)'),
+          trailing: Switch(
+            value: context.watch<TempSettingsCubit>().state.tempUnit ==
+                TempUnit.celsius,
+            onChanged: (_) {
+              context.read<TempSettingsCubit>().toggleTempUnit();
+            },
+          ),
+        ),
       ),
     );
   }
