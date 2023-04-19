@@ -1,4 +1,4 @@
-# open_weather_cubit_stream_subscription
+# open_weather_cubit_bloc
 
 A new Flutter project.
 
