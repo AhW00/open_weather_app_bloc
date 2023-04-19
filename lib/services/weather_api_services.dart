@@ -66,6 +66,11 @@ class WeatherApiServices {
         throw httpErrorHandler(response);
       }
       final weatherJson = json.decode(response.body);
+
+      if (weatherJson.isEmpty) {
+        throw WeatherException('Cannot get the location of $city');
+      }
+
       final Weather weather = Weather.fromJson(weatherJson);
 
       return weather;
